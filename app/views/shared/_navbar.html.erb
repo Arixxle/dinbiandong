@@ -1,0 +1,7 @@
+    <% if session[:ccc9527]%>
+      <%= session[:ccc9527]%>
+      <%= link_to "logout", logout_path, method: 'delete' %>
+    <% else %>
+      <a href="/sign_up">sign up</a>
+      <a href="/login">log in</a>
+    <% end %>

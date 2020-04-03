@@ -1,0 +1,21 @@
+<h1>新增餐點</h1>
+
+<%= form_for(@item) do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+  <div>
+    <%= f.label :price %>
+    <%= f.number_field :price %>
+  </div>
+  <div>
+    <%= f.label :spec %>
+    <%= f.text_field :spec %>
+  </div>
+  <%= f.submit %>
+<% end %>
