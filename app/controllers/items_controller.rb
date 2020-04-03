@@ -1,6 +1,9 @@
 class ItemsController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound, 
+  with: :record_not_found
+
   def index
-    
+      @items = Item.all
   end
 
   def new
@@ -18,6 +21,14 @@ class ItemsController < ApplicationController
     end   
   end
 
+  def show
+    @item = Item.find(params[:id])
+  end
+  def destroy
+    item = Item.find(params[:id])
+    item.destroy
+    redirect_to items_path, notice: '成功刪除餐點'
+  end
   private
   def item_params
     params.require(:item).permit(:name,
@@ -25,4 +36,11 @@ class ItemsController < ApplicationController
                                  :description,
                                  :spec)
   end
+  def record_not_found
+    # redirect_to items_path, notice: '找嘸!'
+    render file: 'public/404.html', 
+    status: 404, 
+    layout: false
+  end
+
 end
