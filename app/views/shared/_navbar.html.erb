@@ -1,7 +1,10 @@
-    <% if session[:ccc9527]%>
-      <%= session[:ccc9527]%>
+    <%= link_to '餐點列表', items_path %>
+    <% if current_user %>
+      <%= current_user %>
       <%= link_to "logout", logout_path, method: 'delete' %>
+      <%= link_to "我要開團", '#' %>
     <% else %>
+      <%# <a href="/items">餐點列表</a> %>
       <a href="/sign_up">sign up</a>
       <a href="/login">log in</a>
     <% end %>

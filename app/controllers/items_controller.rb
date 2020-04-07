@@ -1,9 +1,7 @@
 class ItemsController < ApplicationController
-  rescue_from ActiveRecord::RecordNotFound, 
-  with: :record_not_found
-
+  before_action :find_item, only: [:show, :edit, :update, :destroy]
   def index
-      @items = Item.all
+    @items = Item.all
   end
 
   def new
@@ -14,7 +12,6 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
 
     if @item.save
-      # flash[:notice] = 'Items had been added!'
       redirect_to items_path, notice: 'Items had been added!'
     else
       render :new
@@ -22,25 +19,35 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
+    @category = @item.category.name
   end
+
+  def edit
+  end
+
+  def update
+    # debugger
+    if @item.update(item_params)
+      redirect_to item_path, notice: '成功更新餐點'
+    else
+      render :edit
+    end
+  end
+
   def destroy
-    item = Item.find(params[:id])
-    item.destroy
+    @item.destroy
     redirect_to items_path, notice: '成功刪除餐點'
   end
+
   private
   def item_params
     params.require(:item).permit(:name,
                                  :price,
                                  :description,
+                                 :category_id,
                                  :spec)
   end
-  def record_not_found
-    # redirect_to items_path, notice: '找嘸!'
-    render file: 'public/404.html', 
-    status: 404, 
-    layout: false
+  def find_item
+    @item = Item.find(params[:id])
   end
-
 end
