@@ -45,7 +45,8 @@ class ItemsController < ApplicationController
                                  :price,
                                  :description,
                                  :category_id,
-                                 :spec)
+                                 :spec,
+                                 :cover)
   end
   def find_item
     @item = Item.find(params[:id])
