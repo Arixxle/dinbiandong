@@ -4,9 +4,10 @@ class Item < ApplicationRecord
 
   belongs_to :category
   has_one_attached :cover
-  # scope :available, ->{ where(deleted_at: nil)}
+  # scope :available, ->{ where(deleted_at: nil)} # 會定義出一個.available類別方法
 
   default_scope { where(deleted_at: nil) }
+  
   def destroy
     update(deleted_at: Time.now)
   end

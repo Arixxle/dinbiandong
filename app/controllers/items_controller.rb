@@ -34,6 +34,7 @@ class ItemsController < ApplicationController
       redirect_to item_path, notice: '成功更新餐點'
     else
       render :edit
+      # redirect_to item_path
     end
   end
 
