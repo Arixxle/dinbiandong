@@ -1,15 +1,20 @@
 <h1>餐點列表</h1>
 <%= link_to "新增", new_item_path %>
 <%= link_to 'Category', categories_path %>
-<ul>
-  <% @items.each do |item| %>
-    <li>
-    <%# <%= item.name %>
-    <%= image_tag item.cover.variant(resize_to_limit: [100, 100]) if item.cover.attached? %>
-    <%= link_to item.name, item_path(item.id) %>
-    <%= item.category.name %>
-    <%= link_to "編輯", edit_item_path(item.id) %>
-    <%= link_to "刪除", item_path(item.id), method: 'delete', data: {confirm: "是否確認刪除?"} %>
-    </li>
-  <% end %>
-</ul>
+
+  <div class="row">
+    <% @items.each do |item| %>
+      <div class="col-12 col-md-4">
+        <div class="card" style="width: 18rem;">
+          <!-- <img src="https://fakeimg.pl/300x200/" alt=""> -->
+          <%= image_tag item.cover.variant(resize_to_limit: [200, 100]) if item.cover.attached? %>
+          <div class="card-body">
+            <h5 class="card-title"><%= link_to item.name, item_path(item.id) %></h5>
+            <p class="card-text">分類：<%= item.category.name %></p>
+            <%= link_to "編輯", edit_item_path(item.id), class: 'btn btn-info' %>
+            <%= link_to "刪除", item_path(item.id), class: 'btn btn-danger', method: 'delete', data: {confirm: "是否確認刪除?"} %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
