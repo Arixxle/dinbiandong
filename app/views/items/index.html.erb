@@ -4,10 +4,13 @@
 
   <div class="row">
     <% @items.each do |item| %>
-      <div class="col-12 col-md-4">
-        <div class="card mt-3" style="width: 18rem;">
+      <div class="col-12 col-md-4 item">
+        <div class="card mt-3">
           <!-- <img src="https://fakeimg.pl/300x200/" alt=""> -->
-          <%= image_tag item.cover.variant(resize_to_limit: [200, 100]) if item.cover.attached? %>
+          <div class="cover-image overflow-hidden">
+            <!-- <img src="https://picsum.photos/100/200?random=11" class="card-img w-100 h-auto"  alt=""> -->
+            <%= image_tag item.cover.variant(resize_to_limit: [200, 200]) if item.cover.attached? %>
+          </div>
           <div class="card-body">
             <h5 class="card-title"><%= link_to item.name, item_path(item.id) %></h5>
             <p class="card-text">分類：<%= item.category.name %></p>
@@ -18,3 +21,7 @@
       </div>
     <% end %>
   </div>
+
+  <!-- <div class="box">
+    <img src="https://picsum.photos/300/500?random=11" alt="">
+  </div> -->
