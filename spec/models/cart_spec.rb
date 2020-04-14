@@ -43,7 +43,55 @@ RSpec.describe Cart, type: :model do
       expect(cart.total).to be 350
     end
 
+    it "特別活動可搭配折扣" do
+      
+      cart = Cart.new
+      i1 = FactoryBot.create(:item, price: 50)
+      i2 = FactoryBot.create(:item, price: 100)
+
+      3.times { cart.add_item(i1.id)}
+      2.times { cart.add_item(i2.id)}
+
+      t = Time.local(2008, 4, 1, 10, 5, 0)
+      Timecop.travel(t)
+      #將事件發生時間移動到4/1
+      # expect(cart.total.).to be 35
+      expect(cart.total).to eq 35
+    end
+
   end
+
   describe "進階功能" do
+    it "可以將購物車內容轉換成 Hash 並存到 Session 裡。" do
+      cart = Cart.new
+      i1 = FactoryBot.create(:item)
+      i2 = FactoryBot.create(:item)
+
+      3.times { cart.add_item(i1.id)}
+      2.times { cart.add_item(i2.id)}
+
+      result = {
+        "items" => [
+          { "item_id" => 1, "quantity" => 3},
+          { "item_id" => 2, "quantity" => 2}
+        ]
+      }
+      expect(cart.to_hash).to eq result
+    end
+
+    it "Hash還原成購物車的內容" do
+      result = {
+        "items" => [
+          { "item_id" => 1, "quantity" => 3},
+          { "item_id" => 2, "quantity" => 2}
+        ]
+      }
+
+      cart = Cart.from_hash(result)
+      # expect(cart.empty?).to be false
+      expect(cart.items.count).to be 2
+
+    end
+
   end
 end
