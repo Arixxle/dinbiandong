@@ -1,29 +1,31 @@
 class Cart
+  attr_reader :items
+
   def initialize(items = [])
     @items = items
   end
   
   def add_item(item_id)
-    found_item = @items.find { |item| item.item_id == item_id }
+    found_item = items.find { |item| item.item_id == item_id }
 
     if found_item
       found_item.increment!
     else
-      @items << CartItem.new(item_id)
+      items << CartItem.new(item_id)
     end
 
   end
 
   def empty?
-    @items.empty?
+    items.empty?
   end
 
-  def items
-    @items
-  end
+  # def items
+  #   @items
+  # end
 
   def total
-    result = @items.reduce(0) { |sum, item| sum + item.total }
+    result = items.reduce(0) { |sum, item| sum + item.total }
     if Time.now.month == 4 and Time.now.day == 1
       # 4/1全館打1折
       result = result * 0.1
@@ -63,13 +65,19 @@ class Cart
 
   def self.from_hash(hash = nil)
     if hash && hash["items"]
-      items = []
-      hash["items"].each do |item|
-        items << CartItem.new(item["item_id"], item["quantity"])
-      end
-      Cart.new(items)
+      # items = []
+      # hash["items"].each do |item|
+      #   items << CartItem.new(item["item_id"], item["quantity"])
+      # end
+
+      items = hash["items"].map { |item| 
+      CartItem.new(item["item_id"], item["quantity"])
+      }
+      # Cart.new(items)
+      new items
     else
-      Cart.new
+      # Cart.new
+      new #類別內直接呼叫類別方法即可，不用Cart也可以用
     end
   end
 
