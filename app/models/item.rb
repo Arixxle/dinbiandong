@@ -4,6 +4,7 @@ class Item < ApplicationRecord
 
   belongs_to :category
   has_one_attached :cover
+  has_many :comments
   # scope :available, ->{ where(deleted_at: nil)} # 會定義出一個.available類別方法
 
   default_scope { where(deleted_at: nil) }

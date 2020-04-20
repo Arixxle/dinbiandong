@@ -23,6 +23,8 @@ class ItemsController < ApplicationController
 
   def show
     @category = @item.category.name
+    @comment = Comment.new
+    @comments = @item.comments.includes(:user)
   end
 
   def edit

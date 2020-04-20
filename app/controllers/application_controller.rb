@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
     layout: false
   end
   def current_user
-    session[:ccc9527] 
+    # session[:ccc9527] #現在這裡是id
+    User.find_by(id: session[:ccc9527]) #這裡會撈出一比model資料 find_by(id)
   end
 end
