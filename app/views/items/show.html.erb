@@ -1,4 +1,13 @@
-<h1><%= @item.name %></h1>
+
+
+<h1 data-controller="item">
+<%= @item.name %>
+<%# <i class = "fas fa-heart"></i> %>
+  <a href="#" class="btn btn-danger" data-action="item#heart">
+    <i class="far fa-heart" data-target="item.icon"></i> <!-- 加data-->
+  </a>
+</h1>
+
 <h1>價錢：<%= @item.price %></h1>
 <h1>分類：<%= @category %></h1>
 
@@ -8,7 +17,7 @@
   <div class="form-group">  
     <%= form.text_area :content ,class: 'form-control' %>
   </div>
-<%= form.submit %>
+<%= form.submit class: 'btn btn-info'%>
 <% end %>
 
 <hr>
