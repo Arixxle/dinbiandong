@@ -47,9 +47,8 @@ class ItemsController < ApplicationController
   end
 
   def add_to_cart
-    cart = Cart.from_hash(session[:carty])
-    cart.add_item(@item.id)
-    session[:carty] = cart.to_hash
+    current_cart.add_item(@item.id)
+    session[:carty] = current_cart.to_hash
 
     redirect_to '/', notice: 'OK 加到購物車'
   end
