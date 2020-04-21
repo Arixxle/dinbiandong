@@ -8,6 +8,7 @@
 // </div>
 
 import { Controller } from "stimulus"
+import axios from "axios"
 
 export default class extends Controller {
   // static targets = [ "output" ]
@@ -29,6 +30,18 @@ export default class extends Controller {
       this.iconTarget.classList.add('fas');
       this.clicked = true;
     }
+
+    const csrfToken = document.querySelector('[name=csrf-token]').content
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken
+
+    axios.post('/api/v1/items/3/favorite')
+    .then(function(resp){
+      console.log(resp.data);
+    })
+    .catch(function(err){
+      console.log(err);
+    })
+
   }
 
   connect() {
