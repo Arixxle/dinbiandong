@@ -14,4 +14,9 @@ class Item < ApplicationRecord
   def destroy
     update(deleted_at: Time.now)
   end
+
+  def favorite_by(u)
+    u.items.include?(self)
+  end
+
 end

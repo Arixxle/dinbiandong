@@ -31,12 +31,21 @@ export default class extends Controller {
       this.clicked = true;
     }
 
+    let item_id = document.querySelector('#item_id').value
+
     const csrfToken = document.querySelector('[name=csrf-token]').content
     axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken
 
-    axios.post('/api/v1/items/3/favorite')
-    .then(function(resp){
-      console.log(resp.data);
+    axios.post(`/api/v1/items/${item_id}/favorite`)
+    .then(resp => {
+      if (resp.data.status === "favorited"){
+        this.iconTarget.classList.remove('far');
+        this.iconTarget.classList.add('fas');
+      } else {
+        this.iconTarget.classList.remove('fas');
+        this.iconTarget.classList.add('far');
+      }
+      // console.log(resp.data);
     })
     .catch(function(err){
       console.log(err);
