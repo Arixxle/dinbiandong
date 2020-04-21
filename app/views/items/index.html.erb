@@ -16,6 +16,7 @@
             <p class="card-text">分類：<%= item.category.name %></p>
             <%= link_to "編輯", edit_item_path(item.id), class: 'btn btn-info' %>
             <%= link_to "刪除", item_path(item.id), class: 'btn btn-danger', method: 'delete', data: {confirm: "是否確認刪除?"} %>
+            <%= link_to "+Cart", add_to_cart_item_path(item), class: 'btn btn-warning',method: 'post' %>
           </div>
         </div>
       </div>

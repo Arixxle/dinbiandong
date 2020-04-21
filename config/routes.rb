@@ -6,9 +6,15 @@ Rails.application.routes.draw do
     resources :comments, only:[:create]
     # /new 不需要是因為，已經在show頁面有欄位，不需要一個獨立頁面
     # /create
+    member do
+      post :add_to_cart
+    end
   end
 
+  #cart
+  # post "/abc/:id", to: "cart#add", as: :cart
 
+  resource :cart, only: [:show, :destroy]
 
   # resources :comments
   #/:id

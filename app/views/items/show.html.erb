@@ -10,6 +10,7 @@
     <i class="far fa-heart" data-target="item.icon"></i> <!-- 加data-->
     <% end %>
   </a>
+  <%= link_to "+Cart", add_to_cart_item_path(@item), class: 'btn btn-warning',method: 'post' %>
 </h1>
 
 <h1>價錢：<%= @item.price %></h1>
