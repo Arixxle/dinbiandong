@@ -36,7 +36,7 @@
         </li>
         <li class="nav-item ">
           <%# <%= link_to "Cart <i class='fas fa-shopping-cart'></i>".html_safe, 'add_to_cart_item_path(item)', class: 'nav-link' %>
-          <%= link_to '#', class: 'nav-link' do %>
+          <%= link_to cart_path, class: 'nav-link' do %>
             Cart <i class='fas fa-shopping-cart'></i> <%= current_cart.items.count%>
           <% end%>
         </li>
