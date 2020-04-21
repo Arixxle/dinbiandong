@@ -9,6 +9,7 @@
 
 import { Controller } from "stimulus"
 import axios from "axios"
+import Rails from "@rails/ujs"
 
 export default class extends Controller {
   // static targets = [ "output" ]
@@ -33,27 +34,50 @@ export default class extends Controller {
 
     let item_id = document.querySelector('#item_id').value
 
-    const csrfToken = document.querySelector('[name=csrf-token]').content
-    axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken
+    // const csrfToken = document.querySelector('[name=csrf-token]').content
+    // axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken
 
-    axios.post(`/api/v1/items/${item_id}/favorite`)
-    .then(resp => {
-      if (resp.data.status === "favorited"){
-        // console.log('yes')
-        this.iconTarget.classList.remove('far');
-        this.iconTarget.classList.add('fas');
-      } else {
-        // console.log('no')
-
-        this.iconTarget.classList.remove('fas');
-        this.iconTarget.classList.add('far');
+    //Rails.ajax
+    Rails.ajax({
+      url: `/api/v1/items/${item_id}/favorite`,
+      type: 'POST',
+      success: resp => {
+        console.log(resp);
+        if (resp.status === "favorited"){
+          // console.log('yes')
+          this.iconTarget.classList.remove('far');
+          this.iconTarget.classList.add('fas');
+        } else {
+          // console.log('no')
+          this.iconTarget.classList.remove('fas');
+          this.iconTarget.classList.add('far');
+        }
+      },
+      error: err => {
+        console.log(err);
       }
-      // console.log(resp.data);
     })
-    .catch(function(err){
-      console.log(err);
-    })
+
+
+    // axios.post(`/api/v1/items/${item_id}/favorite`)
+    // .then(resp => {
+    //   if (resp.data.status === "favorited"){
+    //     // console.log('yes')
+    //     this.iconTarget.classList.remove('far');
+    //     this.iconTarget.classList.add('fas');
+    //   } else {
+    //     // console.log('no')
+
+    //     this.iconTarget.classList.remove('fas');
+    //     this.iconTarget.classList.add('far');
+    //   }
+    //   // console.log(resp.data);
+    // })
+    // .catch(function(err){
+    //   console.log(err);
+    // })
     }
+
 
   connect() {
     // this.outputTarget.textContent = 'Hello, Stimulus!'
