@@ -4,7 +4,11 @@
 <%= @item.name %>
 <%# <i class = "fas fa-heart"></i> %>
   <a href="#" class="btn btn-danger" data-action="item#heart">
+    <% if @item.favorite_by(current_user) %>
+    <i class="fas fa-heart" data-target="item.icon"></i> <!-- 加data-->
+    <% else %>
     <i class="far fa-heart" data-target="item.icon"></i> <!-- 加data-->
+    <% end %>
   </a>
 </h1>
 

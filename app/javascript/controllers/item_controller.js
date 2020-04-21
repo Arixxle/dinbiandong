@@ -39,9 +39,12 @@ export default class extends Controller {
     axios.post(`/api/v1/items/${item_id}/favorite`)
     .then(resp => {
       if (resp.data.status === "favorited"){
+        // console.log('yes')
         this.iconTarget.classList.remove('far');
         this.iconTarget.classList.add('fas');
       } else {
+        // console.log('no')
+
         this.iconTarget.classList.remove('fas');
         this.iconTarget.classList.add('far');
       }
@@ -50,8 +53,7 @@ export default class extends Controller {
     .catch(function(err){
       console.log(err);
     })
-
-  }
+    }
 
   connect() {
     // this.outputTarget.textContent = 'Hello, Stimulus!'
