@@ -29,7 +29,6 @@ export default class extends Controller {
       this.iconTarget.classList.add('fas');
       this.clicked = true;
     }
-
   }
 
   connect() {
