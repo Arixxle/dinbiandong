@@ -14,13 +14,29 @@ class OrdersController < ApplicationController
 
 
     if @order.save
+      gateway = Braintree::Gateway.new(
+        :environment => :sandbox,
+        :merchant_id => 'p2dgfsf3vpwz7575',
+        :public_key => 'ndjyygsw8x94q2nm',
+        :private_key => '483c0f9c850e4182ae7488a2acb62574',
+      )
       #刷卡
-      #清空購物車
-      redirect_to root_path, notice: 'ok'
+      result = gateway.transaction.sale(
+        :amount => current_cart.total,
+        :payment_method_nonce => params[:order][:nonce] #效果同下
+        # :payment_method_nonce => order_params[:nonce]
+      )
+      if result.success?
+        #成功
+        #清空購物車
+      redirect_to root_path, notice: '交易成功'
+      else
+        #失敗
+      redirect_to root_path, notice: '交易失敗'
+      end    
     else
       redirect_to root_path, notice: 'not ok'   
     end
-
     # render html:params
   end
 
