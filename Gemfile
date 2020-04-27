@@ -36,6 +36,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1'
   gem 'timecop', '~> 0.9.1'
   gem 'hirb-unicode', '~> 0.0.5'
+  gem "braintree", "~> 2.101.0"
 end
 
 group :development do

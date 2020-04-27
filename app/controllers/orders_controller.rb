@@ -7,8 +7,8 @@ class OrdersController < ApplicationController
     @order = current_user.orders.build(order_params)
     current_cart.items.each do |cart_item|
       item = OrderItem.new(item: cart_item.item,
-                       price: cart_item.item.price, 
-                       quantity: cart_item.quantity)
+                           price: cart_item.item.price, 
+                           quantity: cart_item.quantity)
       @order.order_items << item
     end
 
