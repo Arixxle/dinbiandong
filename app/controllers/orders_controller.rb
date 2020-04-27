@@ -14,12 +14,7 @@ class OrdersController < ApplicationController
 
 
     if @order.save
-      gateway = Braintree::Gateway.new(
-        :environment => :sandbox,
-        :merchant_id => 'p2dgfsf3vpwz7575',
-        :public_key => 'ndjyygsw8x94q2nm',
-        :private_key => '483c0f9c850e4182ae7488a2acb62574',
-      )
+      
       #刷卡
       result = gateway.transaction.sale(
         :amount => current_cart.total,
@@ -29,6 +24,8 @@ class OrdersController < ApplicationController
       if result.success?
         #成功
         #清空購物車
+        @order.pay!
+        session[:carty] = nil
       redirect_to root_path, notice: '交易成功'
       else
         #失敗
