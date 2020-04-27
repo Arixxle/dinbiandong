@@ -14,7 +14,11 @@ Rails.application.routes.draw do
   #cart
   # post "/abc/:id", to: "cart#add", as: :cart
 
-  resource :cart, only: [:show, :destroy]
+  resource :cart, only: [:show, :destroy] do
+    collection do
+      get :checkout
+    end
+  end
 
   # resources :comments
   #/:id
@@ -40,5 +44,13 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  #order
+  resources :orders, only: [:index, :show, :create] do
+    member do
+      delete :cancel
+    end
+  end
+
 
 end
